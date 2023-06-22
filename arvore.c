@@ -103,7 +103,7 @@ void remove_start(NO **new, int *size)
 
 }
 
-//funcao para remover o no de uma posicao especifica
+//funcao para remover a primeira aparicao do um no especifico
 void remove_specific(NO **new, int *size)
 {
     NO *x, *y;
@@ -141,6 +141,8 @@ void remove_specific(NO **new, int *size)
             assistant = x -> info;
             x = x -> next;
         }
+    }else{
+        printf("\nLISTA VAZIA!\n");
     }
 }
 
@@ -174,6 +176,42 @@ void insert_specific(NO **new, int *size)
             x = x -> next;
         }
     }
+}
+
+//funcao para buscar um elemento
+void buscar(NO **new, int *size)
+{
+    NO *x;
+    int dado = 0, contador = 0;
+    x = (*new) -> next;
+
+
+    if((*new) -> next != NULL){
+        printf("Digite o elemento que deseja buscar: ");
+        scanf("%d", &dado);
+        printf("\n");
+
+        for(int i = 0; i < *size; i++){
+            if(i == *size && contador == 0){
+                printf("\nELEMENTO NAO ENCONTRADO!\n");
+                free(x);
+                return;
+            }else{
+                if(dado == x -> info){
+                    printf("O elemento %d aparece na posicao: %d\n", dado, i+1);
+                    contador++;
+                }
+            }
+            x = x -> next;
+        }
+    }else{
+        printf("\nLISTA VAZIA!\n");
+        free(x);
+        return;
+    }
+
+    free(x);
+    return;
 }
 
 //funcao para printar a arvore
@@ -230,7 +268,7 @@ int main()
 
         while(option != 0)
         {
-            printf("\n\nDIGITE UMA OPCAO:\n   1 - Inserir no inicio\n   2 - Inserir no fim\n   3 - Inserir em uma posicao especifica\n   4 - Remover ultimo elemento\n   5 - Remover primeiro elemento\n   6 - Remover um elemento especifico\n   0 - Encerrar\n      Opcao: ");
+            printf("\n\nDIGITE UMA OPCAO:\n   1 - Inserir no inicio\n   2 - Inserir no fim\n   3 - Inserir em uma posicao especifica\n   4 - Remover ultimo elemento\n   5 - Remover primeiro elemento\n   6 - Remover um elemento especifico\n   7 - Buscar elemento\n   0 - Encerrar\n      Opcao: ");
             scanf("%d", &option);
             printf("\n");
 
@@ -254,6 +292,8 @@ int main()
                 print(&list, &size);
             }else if(option == 0){
                 printf("\n--------------------\nPROGRAMA ENCERRADO!\n--------------------\n\n");
+            }else if(option == 7){
+                buscar(&list, &size);
             }else{
                 printf("\nOpcao invalida!\n");
             }
